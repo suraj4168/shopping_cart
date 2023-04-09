@@ -53,83 +53,80 @@ class _ShoppingItemsState extends State<ShoppingItems> {
                   return const Center(child: Text("No Data Added"));
                 } else {
                   List<ShoppingData>? productList = state.shoppingData;
-                  return Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 1.3 / 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
-                      itemCount: productList!.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Container(
-                          margin: const EdgeInsets.all(8.0),
-                          child: Card(
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8.0))),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              // add this
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 8,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(8.0),
-                                      topRight: Radius.circular(8.0),
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1.3 / 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                    itemCount: productList!.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return Container(
+                        margin: const EdgeInsets.all(8.0),
+                        child: Card(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            // add this
+                            children: <Widget>[
+                              Expanded(
+                                flex: 8,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0),
+                                  ),
+                                  child: Image.network(
+                                      productList[index].featuredImage.toString(),
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                            child: Text(
+                                              productList[index].title.toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        ),
+                                        GestureDetector(
+                                            onTap: (){
+                                              _authBloc.add(
+                                                AddItemEvent(
+                                                  ShoppingData(
+                                                      id: productList[index].id,
+                                                      description:  productList[index].description,
+                                                      title:  productList[index].title,
+                                                      createdAt:  productList[index].createdAt,
+                                                      featuredImage:  productList[index].featuredImage,
+                                                      price: productList[index].price,
+                                                      slug: productList[index].slug,
+                                                      status:  productList[index].status
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: const Icon(Icons.shopping_bag_outlined))
+                                      ],
                                     ),
-                                    child: Image.network(
-                                        productList[index].featuredImage.toString(),
-                                        fit: BoxFit.fill),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                              child: Text(
-                                                productList[index].title.toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          ),
-                                          GestureDetector(
-                                              onTap: (){
-                                                _authBloc.add(
-                                                  AddItemEvent(
-                                                    ShoppingData(
-                                                        id: productList[index].id,
-                                                        description:  productList[index].description,
-                                                        title:  productList[index].title,
-                                                        createdAt:  productList[index].createdAt,
-                                                        featuredImage:  productList[index].featuredImage,
-                                                        price: productList[index].price,
-                                                        slug: productList[index].slug,
-                                                        status:  productList[index].status
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: const Icon(Icons.shopping_bag_outlined))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   );
                 }
               }
