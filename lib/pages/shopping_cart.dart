@@ -88,21 +88,30 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                         children: [
                                           Text(
                                             cartList![i].title.toString(),
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                               fontSize: 20,
                                             ),
                                           ),
-                                          const SizedBox(height: 10),
+                                          const SizedBox(height: 8),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              const Text("Price"),
+                                              const Text("Price",
+                                                style:  TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
                                               Text(
-                                                  cartList![i].price.toString())
+                                                  cartList![i].price.toString(),
+                                                style:  TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              )
                                             ],
                                           ),
-                                          const SizedBox(height: 10),
+                                          const SizedBox(height: 8),
                                           GestureDetector(
                                             onTap: () {
                                               _itemBloc.add(
