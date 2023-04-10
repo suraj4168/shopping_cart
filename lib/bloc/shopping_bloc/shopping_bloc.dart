@@ -18,6 +18,8 @@ class ShoppingBloc extends Bloc<AuthEvent, ShoppingState> {
     if (event is ShoppingEvent) {
       try {
         yield LoadingProduct();
+        Future.delayed(const Duration(seconds: 2), () {
+          });
         final response = await authRepository.getShoppingList();
         if (response.status.toString() == "200") {
           yield DisplayShoppingItems(shoppingData: response.data!);
